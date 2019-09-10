@@ -11,5 +11,3 @@ else:
 	except:
 		responses = resp.text
 		print(responses)
-
-
