@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 
 from login.models import User
 # Create your views here.
@@ -12,6 +13,7 @@ def success(request):
 def authenticate(request, user_id=None):
 	last_user = User.objects.order_by('-last_login')[:1]
 	last_user = last_user[0]
-	print(last_user.name)
-	response = "We are trying to authenticate %s."
-	return HttpResponse(response % str(last_user.name))
+	context = {
+		'last_user':last_user
+	}
+	return render(request, 'login/index.html', context)

@@ -1,0 +1,10 @@
+<!-- index.html -->
+<!--DJANGO searches for templates in template foldes in INSTALLED_APPS -->
+<!--can be referenced using login/templates/index.html -->
+<div class="container">
+	{% if last_user %}
+		<p> We are trying to authenticate {{ last_user.name }} </p>	
+	{% else %}
+		<p> No users have signed in </p>
+	{% endif %}
+</div>
