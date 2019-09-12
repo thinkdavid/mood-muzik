@@ -4,7 +4,8 @@ from django.template import loader
 
 from login.models import User
 
-import requests
+import requests, json
+
 # Create your views here.
 def index(request):
 	context = {}
@@ -17,8 +18,21 @@ def success(request):
 	code = QDict.get('code', default=False)
 	error = QDict.get('error', default=False)
 
-	print("state is: " + state)
-	print("code is: " + code)
+	client_id = '77bf03d75ce441e38287e089b1cb4e4c'
+	client_secret = '8050567645e74a9aa3d2774647848b63'
+	to_encode = client_id + ':' + client_secret
+
+	url = 'https://accounts.spotify.com/api/token'
+	body = {'grant_type': 'authorization_code', 'redirect_uri': 'localhost:8000/login/success', 'code': code}
+	headers = {'Authorization': 'Basic ' + to_encode}
+	print(headers)
+	print(body)
+	resp = requests.post(url, data=body, headers=headers)
+	
+	print("RESULTS OF POST REQUEST")
+	# print(resp.text)
+	print(resp.status_code)
+	# print(resp.headers)
 
 	last_user = User.objects.order_by('-last_login')[:1]
 	last_user = last_user[0]
