@@ -1,0 +1,8 @@
+<!-- authenticate_form.html -->
+<h1> Mood Muzik </h1>
+<form action="{% url 'login:authenticate' %}" method="POST">
+	{% csrf_token %}
+	<input type="text" name="username">
+	<input type="password" name="pw"> 
+	<input type="submit" value="login">
+</form>
